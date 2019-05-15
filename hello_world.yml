@@ -4,10 +4,14 @@
     - name: Hello Message
       debug:
         msg: "Hello World!"
+      tags:
+        - hello-world
 
     - name: Show IP Address
       debug:
         msg: "{{ ansible_default_ipv4.address }}"
+      tags:
+        - ip-address
         
     - name: Ansible Jinja2 for range
       debug:
@@ -17,7 +21,9 @@
              {% for entry in range(1, 11) -%}
                 {{ entry }}
              {% endfor %}
-             
+      tags:
+        - jinja2
+        
     - name: Ansible Jinja2 filters
       debug:
         msg: >
@@ -46,14 +52,20 @@
              --== urlsplit hostname ==--
 
              {{ "http://docs.ansible.com/ansible/latest/playbooks_filters.html" | urlsplit('hostname') }}
-             
+      tags:
+        - jinja2
+        
     - name: Exploring register
       command: hostname -s
       when: 
         - ansible_distribution == "Ubuntu" 
         - ansible_distribution_major_version | int >= 16
       register: command_register
-
+      tags:
+        - register
+        
     - name: Show register
       debug:
         var: command_register
+      tags:
+        - register
