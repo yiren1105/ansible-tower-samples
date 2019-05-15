@@ -9,7 +9,7 @@ Ansible Tower Playbook Samples
 - Ansible Jinja2 filters
 - Exploring register
 - Show register
-- Use of tags
+- Use of tags: press return to separate a tag; use prompt 
 
 ## include_import_playbook.yml
 ### tasks
