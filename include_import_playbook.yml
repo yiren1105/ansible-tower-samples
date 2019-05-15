@@ -1,5 +1,5 @@
 - name: include import playbook
-  host: all
+  hosts: all
   tasks:
 
      - name: Play 1 - Task 1
