@@ -46,3 +46,14 @@
              --== urlsplit hostname ==--
 
              {{ "http://docs.ansible.com/ansible/latest/playbooks_filters.html" | urlsplit('hostname') }}
+             
+    - name: Exploring register
+      command: hostname -s
+      when: 
+        - ansible_distribution == "ubuntu" 
+        - ansible_distribution_major_version | int >= 16
+      register: command_register
+
+    - name: Show register
+      debug:
+        var: command_register
