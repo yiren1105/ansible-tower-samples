@@ -5,3 +5,15 @@
       debug:
         msg: "Hello World!"
 
+    - name: Show IP Address
+      debug:
+        msg: "{{ ansible_default_ipv4.address }}"
+        
+    - name: Ansible Jinja2 for range
+      debug:
+        msg: >
+             --== Ansible Jinja2 for range
+
+             {% for entry in range(1, 11) -%}
+                {{ entry }}
+             {% endfor %}
