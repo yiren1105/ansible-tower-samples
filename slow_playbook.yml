@@ -31,7 +31,7 @@
 
     - name: Task 4
       command: /bin/sleep 30
-      when: ansible_hostname == 'localhost'
+      when: ansible_hostname == 'local'
       async: 10
       poll: 0
 
