@@ -31,7 +31,7 @@
 
     - name: Task 4
       command: /bin/sleep 30
-      when: ansible_hostname == 'Ubuntu'
+      when: ansible_hostname == 'localhost'
       async: 10
       poll: 0
 
