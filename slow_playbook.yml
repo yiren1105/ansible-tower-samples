@@ -25,7 +25,7 @@
 
     - name: Task 3
       command: /bin/sleep 5
-      when: ansible_hostname == 'centos3'
+      when: ansible_hostname == 'localhost'
       async: 10
       poll: 0
 
@@ -43,7 +43,7 @@
 
     - name: Task 6
       command: /bin/sleep 5
-      when: ansible_hostname == 'ubuntu3'
+      when: ansible_hostname == 'localhost'
       async: 10
       poll: 0
 
