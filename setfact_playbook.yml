@@ -1,0 +1,38 @@
+-
+
+  # Target: where our play will run and options it will run with
+  hosts: all
+
+  # Task: the list of tasks that will be executed within the play, this section
+  # can also be used for pre and post tasks
+  tasks:
+    - name: Set a fact
+      set_fact:
+        our_fact: Ansible Rocks!
+        ansible_distribution: "{{ ansible_distribution | upper }}"
+
+    - name: Show our_fact
+      debug:
+        msg: "{{ our_fact }}"
+
+    - name: Show ansible_distribution
+      debug:
+        msg: "{{ ansible_distribution }}"
+        
+    - name: Set our installation variables for CentOS
+      set_fact:
+        webserver_application_port: 80
+        webserver_application_path: /usr/share/www
+        webserver_application_user: root
+      when: ansible_distribution == 'MacOSX'
+
+    - name: Set our installation variables for Ubuntu
+      set_fact:
+        webserver_application_port: 8080
+        webserver_application_path: /local/nginx
+        webserver_application_user: nginx
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Show pre-set distribution based facts
+      debug:
+        msg: "webserver_application_port:{{ webserver_application_port }} webserver_application_path:{{ webserver_application_path }} webserver_application_user:{{ webserver_application_user }}"
