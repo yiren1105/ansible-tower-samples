@@ -1,0 +1,19 @@
+---
+-
+  name: use apt module to install packages
+  hosts: all
+  vars:
+    package_list:
+      - python
+      - python-setuptools
+      - python-dev
+      - build-essential
+      - python-pip
+      - python-mysqldb
+  tasks:
+    - name: install packages using apt
+      apt: 
+        name: "{{ item }}"
+        state: present
+      with_items: "{{package_list}}"
+...
