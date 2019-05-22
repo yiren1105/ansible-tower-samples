@@ -12,7 +12,7 @@
       - python-mysqldb
   tasks:
     - name: install packages using apt
-      apt: 
+      package: 
         name: "{{ item }}"
         state: present
       with_items: "{{package_list}}"
