@@ -1,0 +1,56 @@
+---
+- hosts: all ansible_python_interpreter=/usr/bin/python
+  become: true
+  tasks:
+  - name: Create User mqm
+    user:
+      name=mqm
+      state=present
+      createhome=yes
+      home=/home/mqm
+  - name: Create Group mqm
+    group:
+      name=mqm
+      state=present
+  - name: Add user mqm to group mqm
+    user:
+      name: mqm
+      groups: mqm
+      append: yes
+  - name: Creates MQ Directories
+    file:
+      path: /opt/mqm
+      state: directory
+      owner: mqm
+      group: mqm
+  - name: Creates MQ Directories
+    file:
+      path: /var/mqm
+      state: directory
+      owner: mqm
+      group: mqm
+  - name: Take back up of /etc/sysctl.conf
+    copy:
+      src: /etc/sysctl.conf
+      dest: /etc/sysctl.conf.orig
+  - name: Take back up of /etc/security/limits.conf
+    copy:
+      src: /etc/security/limits.conf
+      dest: /etc/security/limits.conf.orig
+  - name: edit /etc/sysctl.conf to add
+    lineinfile:
+      path: /etc/sysctl.conf
+      line: >
+        kernel.shmmni = 4096
+        kernel.shmall = 2097152
+        kernel.shmmax = 268435456
+        kernel.sem = 32 4096 32 128
+        fs.file-max = 524288
+  - name: edit /etc/security/limits.conf to add
+    lineinfile:
+      path: /etc/security/limits.conf
+      line: >
+        mqm       hard  nofile     10240
+        mqm       soft  nofile     10240
+      insertbefore: End of file
+...
